@@ -4,25 +4,27 @@
     {
         public int[] solution(int N, int[] A)
         {
+            if (N < 1 || N > 100000)
+            {
+                throw new ArgumentException("N must be between 1 and 100,000");
+            }
+
+            if (A.Length < 1 || A.Length > 100000)
+            {
+                throw new ArgumentException("M must be between 1 and 100,000");
+            }
+
             int[] counters = new int[N];
             int maxCounter = 0;
             int lastMaxCounter = 0;
 
-            for (int i = 0; i < A.Length; i++)
+            foreach (int operation in A)
             {
-                int operation = A[i];
                 if (operation >= 1 && operation <= N)
                 {
                     int counter = operation - 1;
-                    if (counters[counter] < lastMaxCounter)
-                    {
-                        counters[counter] = lastMaxCounter;
-                    }
-                    counters[counter]++;
-                    if (counters[counter] > maxCounter)
-                    {
-                        maxCounter = counters[counter];
-                    }
+                    counters[counter] = Math.Max(counters[counter], lastMaxCounter) + 1;
+                    maxCounter = Math.Max(maxCounter, counters[counter]);
                 }
                 else if (operation == N + 1)
                 {
@@ -32,10 +34,7 @@
 
             for (int i = 0; i < N; i++)
             {
-                if (counters[i] < lastMaxCounter)
-                {
-                    counters[i] = lastMaxCounter;
-                }
+                counters[i] = Math.Max(counters[i], lastMaxCounter);
             }
 
             return counters;

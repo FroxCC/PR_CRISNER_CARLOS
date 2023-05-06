@@ -21,16 +21,30 @@ namespace SolutionTest
                 Assert.That(result, Is.EqualTo(expected));
             }
 
-            [Test]
-            public void TestWithEmptyArray()
+            public void TestExceptionWhenNIsOutOfRange()
             {
-                int[] A = new int[0];
-                int N = 5;
-                int[] expected = new int[] { 0, 0, 0, 0, 0 };
+                int N = 100001;
+                int[] A = new int[] { 1, 2, 3 };
+                var expectedMessage = "N must be between 1 and 100,000";
                 Solution solution = new Solution();
-                int[] result = solution.solution(N, A);
-                Assert.AreEqual(expected, result);
+
+                var ex = Assert.Throws<ArgumentException>(() => solution.solution(N, A));
+                Assert.That(ex.Message, Is.EqualTo(expectedMessage));
             }
+
+            [Test]
+            public void TestExceptionWhenMIsOutOfRange()
+            {
+                int N = 10;
+                int[] A = new int[100001]; // A is too large
+                var expectedMessage = "M must be between 1 and 100,000";
+                Solution solution = new Solution();
+
+                var ex = Assert.Throws<ArgumentException>(() => solution.solution(N, A));
+                Assert.That(ex.Message, Is.EqualTo(expectedMessage));
+            }
+
+
 
         }
     }
