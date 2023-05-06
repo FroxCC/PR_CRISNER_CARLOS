@@ -23,7 +23,7 @@ namespace SolutionTest
 
             public void TestExceptionWhenNIsOutOfRange()
             {
-                int N = 100001;
+                int N = 100001; // N is too large
                 int[] A = new int[] { 1, 2, 3 };
                 var expectedMessage = "N must be between 1 and 100,000";
                 Solution solution = new Solution();
