@@ -20,7 +20,7 @@ namespace SolutionTest
 
                 Assert.That(result, Is.EqualTo(expected));
             }
-
+            [Test]
             public void TestExceptionWhenNIsOutOfRange()
             {
                 int N = 100001; // N is too large
